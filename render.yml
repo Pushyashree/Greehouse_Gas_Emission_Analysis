@@ -3,7 +3,7 @@ name: Render R Markdown
 on:
   push:
     branches:
-      - main  # Change this if using a different branch
+      - main  
 
 jobs:
   render:
@@ -19,4 +19,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .  # Use this if your HTML is in the root
+          publish_dir: .  
