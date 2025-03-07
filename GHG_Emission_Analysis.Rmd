@@ -5,7 +5,7 @@ email: pushyashree.kj.2000@gmail.com
 output:html_document: default
 ---
 
-# **Introduction**
+## **Introduction**
 This report analyzes greenhouse gas emissions for different countries from 1990 to 2014.  
 It includes:
 - Emission distributions
@@ -21,7 +21,7 @@ Per the [UNData](http://data.un.org/Explorer.aspx) terms of use: all data and me
 
 ---
 
-# **1️⃣ Data Loading & Preprocessing**
+## **1️⃣ Data Loading & Preprocessing**
 ```{r setup, echo=TRUE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 library(ggplot2)
@@ -40,7 +40,7 @@ head(ghg_data)
 str(ghg_data)
 ```
 
-# **2️⃣ Renaming Categories**
+## **2️⃣ Renaming Categories**
 ```{r, results="hide"}
 # Rename emission categories for readability
 ghg_data <- ghg_data %>%
@@ -58,7 +58,7 @@ ghg_data <- ghg_data %>%
 ))
 ```
 
-# **3️⃣ Assigning Regions (Europe vs. Non-Europe)**
+## **3️⃣ Assigning Regions (Europe vs. Non-Europe)**
 ```{r, results="hide"}
 # Define European countries
 european_countries <- c("Austria", "Belarus", "Belgium", "Croatia", "Czech Republic", "Denmark",
@@ -72,7 +72,7 @@ ghg_data <- ghg_data %>%
   mutate(region = ifelse(country_or_area %in% european_countries, "Europe", "Non-Europe"))
 ```
 
-# **4️⃣ Visualizing Emission Distributions: Emission Distribution in 1990 vs 2014**
+## **4️⃣ Visualizing Emission Distributions: Emission Distribution in 1990 vs 2014**
 ```{r, fig.width=10, fig.height=6}
 filtered_data <- ghg_data %>% filter(year %in% c(1990, 2014))
 
@@ -85,7 +85,7 @@ ggplot(filtered_data, aes(x = as.factor(year), y = value, fill = category)) +
   theme_minimal()
 ```
 
-# **5️⃣ European vs Non-European Emission Comparison**
+## **5️⃣ European vs Non-European Emission Comparison**
 ```{r, fig.width=10, fig.height=6}
 ggplot(ghg_data, aes(x = region, y = value, fill = category)) +
   geom_boxplot(outlier.shape = NA) +
@@ -95,7 +95,7 @@ ggplot(ghg_data, aes(x = region, y = value, fill = category)) +
   theme_minimal()
 ```
 
-# **6️⃣ How Emission Categories Have Changed Over Time (1990-2014)**
+## **6️⃣ How Emission Categories Have Changed Over Time (1990-2014)**
 ```{r, fig.width=10, fig.height=6}
 ggplot(ghg_data, aes(x = year, y = value, color = category)) +
   geom_line(stat="summary", fun="mean", linewidth=1.2) + 
@@ -104,7 +104,7 @@ ggplot(ghg_data, aes(x = year, y = value, color = category)) +
   theme_minimal()
 ```
 
-# **7️⃣ Comparing Emission Distributions Between 1990 and 2014**
+## **7️⃣ Comparing Emission Distributions Between 1990 and 2014**
 ```{r, fig.width=10, fig.height=6}
 filtered_data <- ghg_data %>% filter(year %in% c(1990, 2014))
 
@@ -117,7 +117,7 @@ ggplot(filtered_data, aes(x = value, fill = as.factor(year))) +
   theme_minimal()
 ```
 
-# **8️⃣ Understanding Relationships Between Different Greenhouse Gases**
+## **8️⃣ Understanding Relationships Between Different Greenhouse Gases**
 ```{r, fig.width=10, fig.height=6}
 # Reshape data to wide format for correlation
 wide_data <- ghg_data %>%
@@ -170,12 +170,12 @@ plot_heatmap <- function(region_filter) {
 }
 ```
 
-# **9️⃣ How European Countries' Emissions Have Evolved from 1990 to 2014**
+## **9️⃣ How European Countries' Emissions Have Evolved from 1990 to 2014**
 ```{r, fig.width=10, fig.height=6}
 plot_heatmap("Europe")
 ```
 
-# **🔟 Tracking Emission Changes in Non-European Countries (1990-2014)**
+## **🔟 Tracking Emission Changes in Non-European Countries (1990-2014)**
 ```{r, fig.width=10, fig.height=6}
 plot_heatmap("Non-Europe")
 ```
